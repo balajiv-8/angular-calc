@@ -1,1 +1,29 @@
 /* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+body {
+  @apply bg-teal-900;
+}
+
+.function_screen {
+  @apply w-full py-5 px-6 text-2xl text-white font-thin ;
+}
+.button_class{
+  @apply w-full
+  h-16
+  outline-none
+  hover:bg-red-700 hover:bg-opacity-20
+  text-white
+  bg-red-700
+  text-xl
+  font-light;
+}
+
+.button_size{
+  @apply w-1/4 border-r border-b border-red-400
+
+}
