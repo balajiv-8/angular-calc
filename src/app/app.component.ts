@@ -11,7 +11,7 @@ export class AppComponent {
   calValue :number=0;
   funcT:any =' ';
 
-  calNumber: string = 'noValue'
+  calNumber: string = 'noValue';
 
   firstNumber :number =0;
   secondNumber:number =0;
