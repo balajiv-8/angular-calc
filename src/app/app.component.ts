@@ -8,85 +8,105 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'calculator';
 
-  calValue :number=0;
-  funcT:any =' ';
-
+  calValue: number = 0;
+  funcT: any = ' ';
   calNumber: string = 'noValue';
+  firstNumber: number = 0;
+  secondNumber: number = 0;
 
-  firstNumber :number =0;
-  secondNumber:number =0;
-
-  onClickValue (val: string,type : any){
-    if (type == 'number'){
+  onClickValue(val: string, type: any) {
+    if (type == 'number') {
       this.onNumberClick(val);
-    }
-    else if( type =='function'){
+    } else if (type == 'function') {
       this.onFunctionClick(val);
     }
   }
-  onNumberClick(val:string){
-   if(this.calNumber  != 'noValue'){
-    this.calNumber = this.calNumber +val;
-   }
-   else{
-    this.calNumber= val;
-   }
-   this.calValue=parseFloat(this.calNumber)
+
+  onNumberClick(val: string) {
+    if (val === '.') {
+      if (this.calNumber.includes('.')) {
+        return;
+      }
+      if (this.calNumber === 'noValue') {
+        this.calNumber = '0.';
+      } else {
+        this.calNumber = this.calNumber + val;
+      }
+    } else {
+      if (this.calNumber !== 'noValue') {
+        this.calNumber = this.calNumber + val;
+      } else {
+        this.calNumber = val;
+      }
+    }
+
+    this.calValue = parseFloat(this.calNumber);
   }
-  onFunctionClick (val :string){
-   
-    if(val =='c'){
+
+  onFunctionClick(val: string) {
+    if (val == 'c') {
       this.clearAll();
-    }
-    else if(this.funcT ==' '){
-      this.firstNumber=this.calValue;
-      this.calValue= 0;
-      this.calNumber='noValue';
-      this.funcT=val;
-    }
-    else if(this.funcT != ' '){
-      this.secondNumber=this.calValue;
+    } else if (val == '+/-') {
+      this.onNegateClick();
+    } else if (this.funcT == ' ') {
+      this.firstNumber = this.calValue;
+      this.calValue = 0;
+      this.calNumber = 'noValue';
+      this.funcT = val;
+    } else if (this.funcT != ' ') {
+      this.secondNumber = this.calValue;
       this.valueCalculate(val);
     }
-
-
   }
-  valueCalculate(val:string){
-    if(this.funcT =='+'){
-      const Total =this.firstNumber+this.secondNumber
-      this.totalAssignValues(Total,val);
-      if(val == '=') {this.onEqualpress()}
-    }
-    if(this.funcT =='-'){
-      const Total =this.firstNumber-this.secondNumber
-      this.totalAssignValues(Total,val);
-      if(val == '=') {this.onEqualpress()}
 
+  onNegateClick() {
+    if (this.calNumber !== 'noValue') {
+      this.calNumber = (-parseFloat(this.calNumber)).toString();
+      this.calValue = parseFloat(this.calNumber);
     }
-    if(this.funcT =='*'){
-      const Total =this.firstNumber*this.secondNumber
-      this.totalAssignValues(Total,val);
-      if(val == '=') {this.onEqualpress()}
-      
-
-    }
-    if(this.funcT =='/'){
-      const Total =this.firstNumber/this.secondNumber
-      this.totalAssignValues(Total,val);
-      if(val == '=') {this.onEqualpress()}
-
-    }
-    if(this.funcT =='%'){
-      const Total =this.firstNumber%this.secondNumber
-      this.totalAssignValues(Total,val);
-      if(val == '=') {this.onEqualpress()}
-
-    }
-    
   }
-  totalAssignValues(Total :number, val : string){
+
+  valueCalculate(val: string) {
+    if (this.funcT == '+') {
+      const Total = this.firstNumber + this.secondNumber;
+      this.totalAssignValues(Total, val);
+      if (val == '=') {
+        this.onEqualpress();
+      }
+    }
+    if (this.funcT == '-') {
+      const Total = this.firstNumber - this.secondNumber;
+      this.totalAssignValues(Total, val);
+      if (val == '=') {
+        this.onEqualpress();
+      }
+    }
+    if (this.funcT == '*') {
+      const Total = this.firstNumber * this.secondNumber;
+      this.totalAssignValues(Total, val);
+      if (val == '=') {
+        this.onEqualpress();
+      }
+    }
+    if (this.funcT == '/') {
+      const Total = this.firstNumber / this.secondNumber;
+      this.totalAssignValues(Total, val);
+      if (val == '=') {
+        this.onEqualpress();
+      }
+    }
+    if (this.funcT == '%') {
+      const Total = this.firstNumber % this.secondNumber;
+      this.totalAssignValues(Total, val);
+      if (val == '=') {
+        this.onEqualpress();
+      }
+    }
+  }
+
+  totalAssignValues(Total: number, val: string) {
     this.calValue = Total;
-      this.firstNumber =Total;
+    this.firstNumber = Total;
       this.secondNumber=0;
       this.calNumber='noValue';
       this.funcT=val;
