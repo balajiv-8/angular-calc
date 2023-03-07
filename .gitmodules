@@ -1,0 +1,3 @@
+[submodule "todo_app"]
+	path = todo_app
+	url = https://github.com/balajiv-8/todo_app.git
